@@ -1,0 +1,54 @@
+{
+  "name": "boj-exchange-rate",
+  "version": "1.0.1",
+  "description": "Official Bank of Japan (Japan) daily exchange rates — 1 (USD/JPY spot + central) currencies vs JPY, history since 1998. Zero-dependency Node.js/TypeScript client.",
+  "keywords": [
+    "boj",
+    "bank",
+    "of",
+    "japan",
+    "exchange-rate",
+    "exchange-rates",
+    "currency",
+    "forex",
+    "fx",
+    "jpy",
+    "central-bank",
+    "official-rates",
+    "japan",
+    "api",
+    "typescript"
+  ],
+  "homepage": "https://allratestoday.com/central-bank-rates-api/boj/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AllRates-Today/boj-exchange-rate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AllRates-Today/boj-exchange-rate/issues"
+  },
+  "license": "MIT",
+  "author": "AllRatesToday <hello@allratestoday.com> (https://allratestoday.com)",
+  "type": "module",
+  "main": "./index.cjs",
+  "module": "./index.mjs",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.mjs",
+      "require": "./index.cjs"
+    }
+  },
+  "files": [
+    "index.mjs",
+    "index.cjs",
+    "index.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "sideEffects": false
+}

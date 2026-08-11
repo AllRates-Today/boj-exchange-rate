@@ -1,7 +1,7 @@
 'use strict';
 // Bank of Japan exchange rates via the AllRatesToday API.
 const BASE = 'https://allratestoday.com/api/v1/central-bank/boj';
-const KEY_HINT = 'An apiKey is required — get a free key at https://allratestoday.com/register (300 requests/month, no credit card).';
+const KEY_HINT = 'An apiKey is required — get a free key at https://allratestoday.com/register (no credit card required).';
 
 async function request(path, params, options) {
   const apiKey = options && options.apiKey;

@@ -70,10 +70,10 @@ const pair = await getRate('USD', 'JPY', { apiKey: 'art_live_...' });
 {
   bank: 'boj',
   name: 'Bank of Japan',
-  rate_date: '2026-08-06',   // Bank of Japan's own publication date
+  rate_date: '2026-09-07',   // Bank of Japan's own publication date
   source: 'USD',
   target: 'JPY',
-  rate: 157.73,
+  rate: 155.92,
   rate_type: 'middle',
   derived: false,
   method: 'published',
@@ -98,10 +98,10 @@ console.log(table.rate_date, table.rates.length);
 {
   bank: 'boj',
   name: 'Bank of Japan',
-  rate_date: '2026-08-06',
+  rate_date: '2026-09-07',
   rates: [
-    { "base": "USD", "quote": "JPY", "type": "middle", "value": 157.73 },
-    { "base": "USD", "quote": "JPY", "type": "spot", "value": 157.87 },
+    { "base": "USD", "quote": "JPY", "type": "middle", "value": 155.92 },
+    { "base": "USD", "quote": "JPY", "type": "spot", "value": 155.56 },
     // … the rest of the published table (1 currency vs JPY)
   ],
   disclaimer: '…'
@@ -141,7 +141,7 @@ Paid plans. One resolved rate per publication date — ready for charting, reval
 import { getHistory } from 'boj-exchange-rate';
 
 const series = await getHistory(
-  { source: 'USD', target: 'JPY', from: '2026-01-01', to: '2026-08-06' },
+  { source: 'USD', target: 'JPY', from: '2026-01-01', to: '2026-09-07' },
   { apiKey: 'art_live_...' }
 );
 ```
@@ -154,11 +154,11 @@ const series = await getHistory(
   source: 'USD',
   target: 'JPY',
   from: '2026-01-01',
-  to: '2026-08-06',
+  to: '2026-09-07',
   count: 152,
   rates: [
     // one entry per publication date
-    { date: '2026-08-06', rate: 157.73, rate_type: 'middle', derived: false, method: 'published' },
+    { date: '2026-09-07', rate: 155.92, rate_type: 'middle', derived: false, method: 'published' },
     // …
   ],
   disclaimer: '…'
@@ -171,9 +171,9 @@ Pass `{ symbol: 'USD' }` instead of `source`/`target` to get the raw published r
 
 ## 🗺️ Currencies covered
 
-Bank of Japan currently publishes rates covering **2 currencies** (as of the latest table):
+Bank of Japan currently publishes rates covering **1 currency** against the JPY (as of the latest table):
 
-`JPY` · `USD`
+🇺🇸 `USD`
 
 ## ⚖️ Published vs derived rates
 
@@ -236,6 +236,14 @@ getRate('USD', 'JPY', { apiKey: 'art_live_...' }).then((pair) => console.log(pai
 | `getLatestRates({ apiKey })` | Free | The central bank's full latest published table |
 | `getRatesForDate(date, { apiKey, source?, target? })` | Paid | The official table (or one pair) for a YYYY-MM-DD date |
 | `getHistory({ symbol \| source+target, from?, to? }, { apiKey })` | Paid | Daily series since 1998 |
+
+## 📥 Bulk data (no key)
+
+Need the whole archive rather than an API call? The same published tables are mirrored daily as open data:
+
+- Hugging Face: [AllRates/central-bank-exchange-rates](https://huggingface.co/datasets/AllRates/central-bank-exchange-rates) — one CSV per institution (`rates/boj.csv`)
+- Kaggle: [allratestoday/central-bank-exchange-rates](https://www.kaggle.com/datasets/allratestoday/central-bank-exchange-rates)
+- CDN JSON: `https://cdn.jsdelivr.net/gh/AllRates-Today/central-bank-exchange-rates@main/data/boj/latest.json`
 
 ## 🔗 Links
 

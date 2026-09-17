@@ -1,4 +1,4 @@
-# Bank of Japan Exchange Rate API — boj-exchange-rate
+# Bank of Japan Exchange Rates API — boj-exchange-rate
 
 [![npm version](https://img.shields.io/npm/v/boj-exchange-rate.svg)](https://www.npmjs.com/package/boj-exchange-rate)
 [![license](https://img.shields.io/npm/l/boj-exchange-rate.svg)](https://github.com/AllRates-Today/boj-exchange-rate/blob/main/LICENSE)
@@ -18,6 +18,21 @@
 
 > **Official rate, not mid-market:** every value here is a number Bank of Japan itself published, fixed once printed and carrying the central bank's own `rate_date` — what filings and audits require. Need the live interbank midpoint for pricing or display instead? Use the [mid-market API](https://allratestoday.com/docs/) or [`@allratestoday/sdk`](https://www.npmjs.com/package/@allratestoday/sdk). The two can diverge by several percent.
 
+## ⚡ Try it without a key
+
+The latest Bank of Japan table is also served keyless, CORS-open and edge-cached, for evaluation, embeds and AI agents:
+
+```bash
+curl "https://allratestoday.com/api/open/central-bank/boj?source=USD&target=JPY"
+```
+
+```js
+const r = await fetch('https://allratestoday.com/api/open/central-bank/boj').then((x) => x.json());
+console.log(r.rate_date, r.rates.length); // the central bank's latest published table, no key
+```
+
+The open endpoint serves the *latest* table only and asks for a visible attribution link. The client below uses the keyed API, which adds point-in-time tables, history, and CSV/XML/Excel output.
+
 ## 🔑 Get your API key
 
 Get a free API key at [allratestoday.com/register](https://allratestoday.com/register) — no credit card required. Latest rates are on every plan, including free.
@@ -36,7 +51,7 @@ yarn add boj-exchange-rate
 pnpm add boj-exchange-rate
 ```
 
-Also published under the org scope as [`@allratestoday/boj-exchange-rate`](https://www.npmjs.com/package/@allratestoday/boj-exchange-rate) — same code, same versions.
+Requires Node 18+ (global `fetch`); also runs on Bun, Deno and edge runtimes. Also published under the org scope as [`@allratestoday/boj-exchange-rate`](https://www.npmjs.com/package/@allratestoday/boj-exchange-rate) — same code, same versions.
 
 ## 🏁 Quick start
 
@@ -77,7 +92,7 @@ const pair = await getRate('USD', 'JPY', { apiKey: 'art_live_...' });
   rate_type: 'middle',
   derived: false,
   method: 'published',
-  disclaimer: '…'
+  disclaimer: 'Official rates as published by the named central bank. On weekends/holidays the most recent published rate_date is returned.'
 }
 ```
 
@@ -175,6 +190,39 @@ Bank of Japan currently publishes rates covering **1 currency** against the JPY 
 
 🇺🇸 `USD`
 
+## 🏛️ Source
+
+The Bank of Japan publishes Tokyo-market USD/JPY reference rates each business day through its time-series statistics portal: the 17:00 JST spot rate and the central rate. These are the Bank's official record of the Tokyo interbank market, with history back to 1998.
+
+- Publisher's own page: [BOJ Time-Series Data Search — foreign exchange rates](https://www.stat-search.boj.or.jp/) · [www.boj.or.jp/en](https://www.boj.or.jp/en/)
+- Publication: every business day; the exact schedule, freshness status and any current delay are on the [Bank of Japan rates page](https://allratestoday.com/central-bank-rates-api/boj/)
+- Values are stored unmodified, with the publisher's own `rate_date` on every row — see the [methodology](https://allratestoday.com/official-rates-methodology/)
+
+## 🧭 Reading the numbers
+
+- `value` is always **quote currency per 1 unit of base currency** (`base: "EUR", quote: "USD", value: 1.15` means 1 EUR = 1.15 USD).
+- Bank of Japan quotes **JPY per 1 unit of foreign currency** (e.g. `base: "USD", quote: "JPY"` means JPY per one US dollar).
+- Need the other way round? Ask `getRate(target, source)` and the API inverts or crosses for you, flagged `derived: true` — never divide a published rate yourself in a compliance workflow.
+- `rate_type` tells you which of the central bank's series a row belongs to (`middle` here); some publishers print buy/sell or several fixings for the same pair.
+
+## 🧩 ERP & accounting systems
+
+Loading the official Bank of Japan rate into an accounting system is a supported workflow, not a hack. Step-by-step guides with the direction each system expects:
+
+- [Dynamics 365 Business Central](https://allratestoday.com/docs/integrations/business-central/) — built-in Currency Exchange Rate Service, no code
+- [Xero](https://allratestoday.com/docs/integrations/xero/) · [QuickBooks Online](https://allratestoday.com/docs/integrations/quickbooks/) · [SAP S/4HANA and ECC](https://allratestoday.com/docs/integrations/sap/) · [Odoo](https://allratestoday.com/docs/integrations/odoo/)
+
+The same keyed endpoints return `?format=csv`, `?format=xml` and `?format=xlsx`, and accept the key as `?api_key=` on the URL for importers that cannot send headers:
+
+```bash
+curl "https://allratestoday.com/api/v1/central-bank/boj/latest?format=xml&api_key=art_live_..."
+```
+
+## 🤖 AI agents
+
+- MCP server: `npx -y @allratestoday/central-bank-mcp` (stdio) or the hosted endpoint `https://allratestoday.com/api/mcp` — tools for official rates, history, cross-bank comparison and publication calendars
+- Machine-readable site guide: [llms.txt](https://allratestoday.com/llms.txt) · [for-ai-agents](https://allratestoday.com/for-ai-agents/)
+
 ## ⚖️ Published vs derived rates
 
 If Bank of Japan does not print a pair directly, the API resolves it from the central bank's own table and says so — official and computed values are never confused:
@@ -249,7 +297,8 @@ Need the whole archive rather than an API call? The same published tables are mi
 
 - [Bank of Japan rates page](https://allratestoday.com/central-bank-rates-api/boj/) — live table, publication cadence, FAQ
 - [All central bank sources](https://allratestoday.com/central-bank-rates-api/)
-- [API documentation](https://allratestoday.com/docs/#central-bank) · [Interactive reference](https://allratestoday.com/api-reference/)
+- [Package docs on the site](https://allratestoday.com/docs/sdk/boj-exchange-rate/) · [ERP integration guides](https://allratestoday.com/docs/integrations/)
+- [API documentation](https://allratestoday.com/docs/#central-bank) · [Interactive reference](https://allratestoday.com/api-reference/) · [Methodology](https://allratestoday.com/official-rates-methodology/)
 - [Register (free)](https://allratestoday.com/register) · [Pricing](https://allratestoday.com/pricing/)
 - [GitHub](https://github.com/AllRates-Today/boj-exchange-rate)
 

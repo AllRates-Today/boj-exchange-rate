@@ -1,6 +1,6 @@
 {
   "name": "boj-exchange-rate",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Official Bank of Japan (Japan) daily exchange rates — 1 currency vs JPY, history since 1998. Zero-dependency Node.js/TypeScript client.",
   "keywords": [
     "boj",

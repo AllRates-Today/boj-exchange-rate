@@ -85,10 +85,10 @@ const pair = await getRate('USD', 'JPY', { apiKey: 'art_live_...' });
 {
   bank: 'boj',
   name: 'Bank of Japan',
-  rate_date: '2026-09-07',   // Bank of Japan's own publication date
+  rate_date: '2026-09-18',   // Bank of Japan's own publication date
   source: 'USD',
   target: 'JPY',
-  rate: 155.92,
+  rate: 157.1,
   rate_type: 'middle',
   derived: false,
   method: 'published',
@@ -113,10 +113,10 @@ console.log(table.rate_date, table.rates.length);
 {
   bank: 'boj',
   name: 'Bank of Japan',
-  rate_date: '2026-09-07',
+  rate_date: '2026-09-18',
   rates: [
-    { "base": "USD", "quote": "JPY", "type": "middle", "value": 155.92 },
-    { "base": "USD", "quote": "JPY", "type": "spot", "value": 155.56 },
+    { "base": "USD", "quote": "JPY", "type": "middle", "value": 157.1 },
+    { "base": "USD", "quote": "JPY", "type": "spot", "value": 157.49 },
     // … the rest of the published table (1 currency vs JPY)
   ],
   disclaimer: '…'
@@ -156,7 +156,7 @@ Paid plans. One resolved rate per publication date — ready for charting, reval
 import { getHistory } from 'boj-exchange-rate';
 
 const series = await getHistory(
-  { source: 'USD', target: 'JPY', from: '2026-01-01', to: '2026-09-07' },
+  { source: 'USD', target: 'JPY', from: '2026-01-01', to: '2026-09-18' },
   { apiKey: 'art_live_...' }
 );
 ```
@@ -169,11 +169,11 @@ const series = await getHistory(
   source: 'USD',
   target: 'JPY',
   from: '2026-01-01',
-  to: '2026-09-07',
+  to: '2026-09-18',
   count: 152,
   rates: [
     // one entry per publication date
-    { date: '2026-09-07', rate: 155.92, rate_type: 'middle', derived: false, method: 'published' },
+    { date: '2026-09-18', rate: 157.1, rate_type: 'middle', derived: false, method: 'published' },
     // …
   ],
   disclaimer: '…'

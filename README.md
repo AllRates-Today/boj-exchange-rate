@@ -85,10 +85,10 @@ const pair = await getRate('USD', 'JPY', { apiKey: 'art_live_...' });
 {
   bank: 'boj',
   name: 'Bank of Japan',
-  rate_date: '2026-10-02',   // Bank of Japan's own publication date
+  rate_date: '2026-10-06',   // Bank of Japan's own publication date
   source: 'USD',
   target: 'JPY',
-  rate: 158.08,
+  rate: 157.92,
   rate_type: 'middle',
   derived: false,
   method: 'published',
@@ -113,10 +113,10 @@ console.log(table.rate_date, table.rates.length);
 {
   bank: 'boj',
   name: 'Bank of Japan',
-  rate_date: '2026-10-02',
+  rate_date: '2026-10-06',
   rates: [
-    { "base": "USD", "quote": "JPY", "type": "middle", "value": 158.08 },
-    { "base": "USD", "quote": "JPY", "type": "spot", "value": 157.58 },
+    { "base": "USD", "quote": "JPY", "type": "middle", "value": 157.92 },
+    { "base": "USD", "quote": "JPY", "type": "spot", "value": 158.12 },
     // … the rest of the published table (1 currency vs JPY)
   ],
   disclaimer: '…'
@@ -156,7 +156,7 @@ Paid plans. One resolved rate per publication date — ready for charting, reval
 import { getHistory } from 'boj-exchange-rate';
 
 const series = await getHistory(
-  { source: 'USD', target: 'JPY', from: '2026-01-01', to: '2026-10-02' },
+  { source: 'USD', target: 'JPY', from: '2026-01-01', to: '2026-10-06' },
   { apiKey: 'art_live_...' }
 );
 ```
@@ -169,11 +169,11 @@ const series = await getHistory(
   source: 'USD',
   target: 'JPY',
   from: '2026-01-01',
-  to: '2026-10-02',
+  to: '2026-10-06',
   count: 152,
   rates: [
     // one entry per publication date
-    { date: '2026-10-02', rate: 158.08, rate_type: 'middle', derived: false, method: 'published' },
+    { date: '2026-10-06', rate: 157.92, rate_type: 'middle', derived: false, method: 'published' },
     // …
   ],
   disclaimer: '…'
@@ -222,6 +222,7 @@ curl "https://allratestoday.com/api/v1/central-bank/boj/latest?format=xml&api_ke
 
 - MCP server: `npx -y @allratestoday/central-bank-mcp` (stdio) or the hosted endpoint `https://allratestoday.com/api/mcp` — tools for official rates, history, cross-bank comparison and publication calendars
 - Already using the general SDK or MCP server? Since 2026-10-01 [`@allratestoday/sdk`](https://www.npmjs.com/package/@allratestoday/sdk) 1.4+ has `officialRates('boj')` and [`@allratestoday/mcp-server`](https://www.npmjs.com/package/@allratestoday/mcp-server) 0.6+ has a `get_official_rates` tool — both return this source's latest table with no key, so you can add it without a second dependency
+- Claude Code plugin (no key): `/plugin marketplace add AllRates-Today/claude-code-plugin` then `/plugin install allratestoday@allratestoday` — bundles both MCP servers plus an `/official-rate boj ...` command
 - Machine-readable site guide: [llms.txt](https://allratestoday.com/llms.txt) · [for-ai-agents](https://allratestoday.com/for-ai-agents/)
 
 ## ⚖️ Published vs derived rates

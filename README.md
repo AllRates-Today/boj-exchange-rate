@@ -47,12 +47,12 @@ The image is rendered live from the keyless endpoint above, so it follows the ce
 
 <!-- daily-table:start -->
 <details>
-<summary>Table as text: published 2026-10-26 by Bank of Japan — 2 rates. Updated 2026-10-28.</summary>
+<summary>Table as text: published 2026-10-27 by Bank of Japan — 2 rates. Updated 2026-10-29.</summary>
 
 | Base | Quote | Type | Rate |
 | --- | --- | --- | ---: |
-| USD | JPY | middle | 157.2 |
-| USD | JPY | spot | 157.13 |
+| USD | JPY | middle | 157.65 |
+| USD | JPY | spot | 157.87 |
 
 </details>
 
@@ -218,6 +218,7 @@ The Bank of Japan publishes Tokyo-market USD/JPY reference rates each business d
 
 - Publisher's own page: [BOJ Time-Series Data Search — foreign exchange rates](https://www.stat-search.boj.or.jp/) · [www.boj.or.jp/en](https://www.boj.or.jp/en/)
 - Publication: every business day; the exact schedule, freshness status and any current delay are on the [Bank of Japan rates page](https://allratestoday.com/central-bank-rates-api/boj/)
+- In the API: usually by **10:15 UTC** (measured over the last 9 publications). Schedule a sync at or after that time and retry hourly until `rate_date` moves; every response carries the same figure as `available_by_utc` — see [when to poll](https://allratestoday.com/docs/#when-to-poll)
 - Values are stored unmodified, with the publisher's own `rate_date` on every row — see the [methodology](https://allratestoday.com/official-rates-methodology/)
 
 ## 🧭 Reading the numbers

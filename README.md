@@ -32,7 +32,7 @@ The image is rendered live from the keyless endpoint, so it follows the central 
 
 <!-- daily-table:start -->
 <details>
-<summary>Table as text: published 2026-10-29 by Bank of Japan — 2 rates. Updated 2026-11-02.</summary>
+<summary>Table as text: published 2026-10-29 by Bank of Japan (the API currently flags this table as stale) — 2 rates. Updated 2026-11-03.</summary>
 
 | Base | Quote | Type | Rate |
 | --- | --- | --- | ---: |

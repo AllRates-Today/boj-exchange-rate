@@ -32,12 +32,12 @@ The image is rendered live from the keyless endpoint, so it follows the central 
 
 <!-- daily-table:start -->
 <details>
-<summary>Table as text: published 2026-11-10 by Bank of Japan — 2 rates. Updated 2026-11-12.</summary>
+<summary>Table as text: published 2026-11-11 by Bank of Japan — 2 rates. Updated 2026-11-13.</summary>
 
 | Base | Quote | Type | Rate |
 | --- | --- | --- | ---: |
-| USD | JPY | middle | 158.11 |
-| USD | JPY | spot | 158.02 |
+| USD | JPY | middle | 158.84 |
+| USD | JPY | spot | 158.88 |
 
 </details>
 
